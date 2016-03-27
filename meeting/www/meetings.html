@@ -1,0 +1,34 @@
+{% macro render_meetings(meetings) %}
+
+{% if meetings %}
+<ul class="list-unstyled meetings-list">
+{% for meeting in meetings %}
+	<li>
+		{% if meeting.page_name %}
+		<a href="/meetings/{{ meeting.page_name }}">
+		{% endif %}
+			{{ meeting.title}}
+		{% if meeting.page_name %}
+		</a><i class="icon icon-link"></i>
+		{% endif %}
+	<br>
+		<span class="text-muted">{{ frappe.format_date(meeting.date) }}: {{ meeting.from_time }} to {{ meeting.to_time }}</span>
+	</li>
+{% endfor %}
+</ul>
+{% else %}
+<p class="text-muted">No meetings listed</p>
+{% endif %}
+{% endmacro %}
+
+<hr>
+
+<h2>Planned Meetings</h2>
+	{{ render_meetings(planned_meetings) }}
+</ul>
+
+<hr>
+
+<h2>Past Meetings</h2>
+	{{ render_meetings(past_meetings) }}
+</ul>

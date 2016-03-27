@@ -6,9 +6,16 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 from frappe.model.document import Document
+from frappe.website.website_generator import WebsiteGenerator
 
-class Meeting(Document):
+class Meeting(WebsiteGenerator):
+	website = frappe._dict(
+		template = "templates/generators/meeting.html",
+		condition_field = "show_in_website"
+	)
+
 	def validate(self):
+		self.page_name = self.name.lower()
 		self.validate_attendees()
 
 	def on_update(self):
@@ -62,6 +69,9 @@ class Meeting(Document):
 			todo = frappe.get_doc("ToDo", todo)
 			todo.flags.from_meeting = True
 			todo.delete()
+
+	def get_context(self, context):
+		context.parents = [{"name": "meetings", "title": "Meetings"}]
 
 
 @frappe.whitelist()

@@ -1,0 +1,63 @@
+{% extends "templates/web.html" %}
+
+{% block title %} {{ doc.name }} {% endblock %}
+
+{% block header %}
+<h1>{{ doc.title }}</h1>
+{% endblock %}
+
+{% block breadcrumbs %}
+    {% include "templates/includes/breadcrumbs.html" %}
+{% endblock %}
+
+{% block page_content %}
+	<ul class="list-unstyled">
+		<li>
+			<label>Date:</label> {{ doc.get_formatted("date") }}
+		</li>
+		<li>
+			<label>Time:</label> {{ doc.get_formatted("from_time") }} to {{ doc.get_formatted("to_time") }}
+		</li>
+		<li>
+			<label>Status:</label> {{ doc.status }}
+		</li>
+	</ul>
+
+	<hr>
+	<h2>Agenda</h2>
+	<ol>
+		{% for agenda in doc.agenda %}
+		<li>
+			{{ agenda.description }}
+		</li>
+		{% endfor %}
+	</ol>
+
+	<hr>
+	<h2>Attendees</h2>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="list-group">
+				{% for attendee in doc.attendees %}
+				<div class="list-group-item">
+					<h4 class="list-group-item-heading">
+						{% if attendee.accepted %}<i class="icon icon-ok"></i>{% endif %}
+						{{ attendee.full_name }}
+					</h4>
+					<p class=list-group-item-text><em>{{ attendee.attendee }}</em></p>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<hr>
+	<h2>Minutes</h2>
+	<ol>
+		{% for minute in doc.minutes %}
+		<li>
+			{{ minute.description }}
+		</li>
+		{% endfor %}
+	</ol>
+{% endblock %}
