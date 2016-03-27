@@ -7,7 +7,7 @@
  "custom": 0, 
  "docstatus": 0, 
  "doctype": "DocType", 
- "document_type": "Document", 
+ "document_type": "", 
  "fields": [
   {
    "allow_on_submit": 0, 
@@ -398,7 +398,7 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
- "modified": "2016-03-25 12:11:01.764063", 
+ "modified": "2016-03-26 15:05:33.867310", 
  "modified_by": "Administrator", 
  "module": "Meeting", 
  "name": "Meeting", 
